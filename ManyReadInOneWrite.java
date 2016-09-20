@@ -18,17 +18,17 @@ public class ManyReadInOneWrite {
         ArrayList<String> list = getListTXTFiles(dir);
 
         try {
-            ArrayList<lesson6.hw.Test.ReadWrite> threadList = new ArrayList<>();
+            ArrayList<ReadWrite> threadList = new ArrayList<>();
             RandomAccessFile newFile = new RandomAccessFile(dir + "\\" + "InfoFromAllTXTFiles.txt", "rw");
             for (String s: list) {
-                threadList.add(new lesson6.hw.Test.ReadWrite(new RandomAccessFile(s, "r"), newFile));
+                threadList.add(new ReadWrite(new RandomAccessFile(s, "r"), newFile));
             }
 
-            for(lesson6.hw.Test.ReadWrite rw: threadList) {
+            for(ReadWrite rw: threadList) {
                 rw.start();
             }
 
-            for(lesson6.hw.Test.ReadWrite rw: threadList) {
+            for(ReadWrite rw: threadList) {
                 rw.join();
             }
 
@@ -89,7 +89,6 @@ public class ManyReadInOneWrite {
             } finally {
                 try {
                     rafFile.close();
-                    // rafCopy.close();
                 } catch (IOException e) {
                     return;
                 }
